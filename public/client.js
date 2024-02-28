@@ -1,4 +1,4 @@
-const ws = new WebSocket("ws:///192.168.1.8:9000");
+const ws = new WebSocket("ws://esp32-cam.onrender.com");
 
 ws.addEventListener("open", (event) => {
   ws.send(
