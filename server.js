@@ -9,7 +9,7 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 let clients = [];
 
 // const HTTP_PORT = 8001;
-const HTTP_PORT = process.env.PORT || 8001;
+const HTTP_PORT = process.env.PORT || 10000;
 let devices = {
   relay_module1: { port: 8888 },
 };

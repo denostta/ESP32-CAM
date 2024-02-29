@@ -2,7 +2,7 @@ services:
   - name: esp32-cam-app
     env: node
     startCommand: npm start
-    port: 8001
+    port: 10000
 
   - name: client-websocket
     env: node
