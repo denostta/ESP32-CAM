@@ -1,11 +1,9 @@
-const ws = new WebSocket("wss://esp32-cam.onrender.com", {
-  headers: { "user-agent": "Mozilla" },
-});
+const ws = new WebSocket("wss://esp32-cam.onrender.com:9000");
 
 ws.addEventListener("open", (event) => {
   ws.send(
     JSON.stringify({
-      client: "8999",
+      client: "9000",
       operation: "connecting",
       data: {},
     })
@@ -79,7 +77,7 @@ ws.onmessage = (message) => {
             .addEventListener("click", function (e) {
               ws.send(
                 JSON.stringify({
-                  client: "8999",
+                  client: "9000",
                   operation: "command",
                   command: {
                     recipient: device,
