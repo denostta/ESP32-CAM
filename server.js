@@ -58,7 +58,8 @@ wss.on("connection", (ws) => {
 Object.entries(devices).forEach(([key]) => {
   const device = devices[key];
 
-  new WebSocket.Server({ port: device.port }, () =>
+  // new WebSocket.Server({ port: device.port }, () =>
+  new WebSocket.Server({ server }, () =>
     console.log(`WS Server is listening at ${device.port}`)
   ).on("connection", (ws) => {
     ws.on("message", (data) => {
