@@ -12,7 +12,7 @@ let clients = [];
 // const HTTP_PORT = 8001;
 const HTTP_PORT = process.env.PORT || 8001;
 let devices = {
-  relay_module1: { server },
+  relay_module1: { port: 8888 },
 };
 
 process.on("uncaughtException", (error, origin) => {
@@ -59,7 +59,7 @@ Object.entries(devices).forEach(([key]) => {
   const device = devices[key];
 
   // new WebSocket.Server({ port: device.port }, () =>
-  new WebSocket.Server({ server }, () =>
+  new WebSocket.Server({ port: device.port }, () =>
     console.log(`WS Server is listening at ${device.port}`)
   ).on("connection", (ws) => {
     ws.on("message", (data) => {
