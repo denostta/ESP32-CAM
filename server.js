@@ -1,15 +1,16 @@
-const path = require("path");
 const express = require("express");
+const http = require("http");
 const WebSocket = require("ws");
+const path = require("path");
 
 const app = express();
-
+const server = http.createServer(app);
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 let clients = [];
 
 // const HTTP_PORT = 8001;
-const HTTP_PORT = process.env.PORT || 10000;
+const HTTP_PORT = process.env.PORT || 8001;
 let devices = {
   relay_module1: { port: 8888 },
 };
@@ -23,9 +24,17 @@ process.on("uncaughtException", (error, origin) => {
 });
 
 // Clients
-const wss = new WebSocket.Server({ port: "9000" }, () =>
-  console.log(`WS Server is listening at 9000`)
-);
+// const wss = new WebSocket.Server({ port: "9000" }, () =>
+//   console.log(`WS Server is listening at 9000`)
+// );
+
+const wss = new WebSocket.Server({ server });
+//   , () =>
+//   console.log(`WS Server is listening at ${server}`)
+// );
+// const wss = new WebSocket.Server({ port: "10000" }, () =>
+//   console.log(`WS Server is listening at 10000`)
+// );
 
 wss.on("connection", (ws) => {
   ws.on("message", (data) => {
@@ -81,6 +90,6 @@ Object.entries(devices).forEach(([key]) => {
 app.get("/client", (_req, res) => {
   res.sendFile(path.resolve(__dirname, "./public/client.html"));
 });
-app.listen(HTTP_PORT, () => {
+server.listen(HTTP_PORT, () => {
   console.log(`HTTP server starting on ${HTTP_PORT}`);
 });
